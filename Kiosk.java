@@ -38,4 +38,9 @@ public class Kiosk {
         }
     }
 
+    // 메뉴아이템을 수동으로 추가하는 기능
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
+
 }
