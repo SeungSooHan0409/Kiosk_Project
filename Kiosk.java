@@ -79,6 +79,10 @@ public class Kiosk {
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
                                 cart.addCart(menu.getMenuItem(0));
+                                System.out.print("담을 수량을 입력해주세요 : ");
+                                int quantity = scanner.nextInt();
+                                cart.plusQuantity(quantity);
+                                scanner.nextLine();
                                 System.out.println("담기완료 되었습니다.");
                                 break;
                             } else {
@@ -90,6 +94,10 @@ public class Kiosk {
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
                                 cart.addCart(menu.getMenuItem(1));
+                                System.out.print("담을 수량을 입력해주세요 : ");
+                                int quantity = scanner.nextInt();
+                                cart.plusQuantity(quantity);
+                                scanner.nextLine();
                                 System.out.println("담기완료 되었습니다.");
                                 break;
                             } else {
@@ -102,6 +110,10 @@ public class Kiosk {
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
                                 cart.addCart(menu.getMenuItem(2));
+                                System.out.print("담을 수량을 입력해주세요 : ");
+                                int quantity = scanner.nextInt();
+                                cart.plusQuantity(quantity);
+                                scanner.nextLine();
                                 System.out.println("담기완료 되었습니다.");
                                 break;
                             } else {
@@ -113,6 +125,10 @@ public class Kiosk {
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
                                 cart.addCart(menu.getMenuItem(3));
+                                System.out.print("담을 수량을 입력해주세요 : ");
+                                int quantity = scanner.nextInt();
+                                cart.plusQuantity(quantity);
+                                scanner.nextLine();
                                 System.out.println("담기완료 되었습니다.");
                                 break;
                             } else {
@@ -124,6 +140,10 @@ public class Kiosk {
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
                                 cart.addCart(menu.getMenuItem(4));
+                                System.out.print("담을 수량을 입력해주세요 : ");
+                                int quantity = scanner.nextInt();
+                                cart.plusQuantity(quantity);
+                                scanner.nextLine();
                                 System.out.println("담기완료 되었습니다.");
                                 break;
                             } else {
@@ -135,6 +155,10 @@ public class Kiosk {
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
                                 cart.addCart(menu.getMenuItem(5));
+                                System.out.print("담을 수량을 입력해주세요 : ");
+                                int quantity = scanner.nextInt();
+                                cart.plusQuantity(quantity);
+                                scanner.nextLine();
                                 System.out.println("담기완료 되었습니다.");
                                 break;
                             } else {
@@ -152,8 +176,18 @@ public class Kiosk {
                 else if (selectCategory.equals("4")) {
                     int k = 1;
                     for(MenuItem menuList : cart.getCartList()) {
-                        System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", k, menuList.getName(), menuList.getPrice(), menuList.getExplain());
+                        System.out.printf("%-1d. %-18s | W %-5.1f | %s  |  수량 :  %-2d\n", k, menuList.getName(), menuList.getPrice(), menuList.getExplain(), cart.getOrderQuantity());
                         k++;
+                    }
+                    System.out.println("계산하시겠습니까? Y/N : ");
+                    String pay = scanner.nextLine();
+                    if(pay.equals("Y")) {
+                        // 계산로직 작성
+                        double totalPayment = 0;
+                        for(MenuItem menuList : cart.getCartList()){
+                            totalPayment += (menuList.getPrice())*(cart.getOrderQuantity());
+                        }
+                        System.out.println("W " + (totalPayment * 1000) + "원이 결제되었습니다.");
                     }
                 }
                 // '5' 입력시 장바구니 메뉴삭제
@@ -198,5 +232,7 @@ public class Kiosk {
     public Menu getMenu() {
         return this.menu;
     }
+
+
 }
 
