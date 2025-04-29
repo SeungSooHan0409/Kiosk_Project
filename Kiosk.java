@@ -19,9 +19,10 @@ public class Kiosk {
     // 기능
     Scanner scanner = new Scanner(System.in);
     public void start(){
-        // 반복문 작성
+        // 키오스크 출력문 출력 로직
         while(true) {
 
+                // 카테고리 출력
                 int j = 1;
                 for (String category : menu.getCategoryList()) {
                     System.out.printf("%-1d. %-18s \n", j, category);
@@ -30,13 +31,15 @@ public class Kiosk {
                 System.out.println("0. 종료    |  종료");
                 System.out.print("카테고리를 선택해주세요 : ");
                 String selectCategory = scanner.nextLine();
+                // 카테고리 입력 대기
 
+
+                // 버거메뉴 출력
                 if (!selectCategory.equals("1") && !selectCategory.equals("0")) {
                     throw new IllegalArgumentException("잘못된 입력값입니다.");
                 } else if(selectCategory.equals("1")){
                     while(true) {
                     System.out.println("[ SHAKESHAKE MENU ]");
-                    // 출력을 가지런히 하기위해 포맷팅되는 printf 를 사용함.
                     int i = 1;
                     for (MenuItem menuList : menu.getItemList()) {
                         System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", i, menuList.getName(), menuList.getPrice(), menuList.getExplain());
@@ -49,6 +52,8 @@ public class Kiosk {
                     if(!selectMenu.equals("0") && !selectMenu.equals("1") && !selectMenu.equals("2") && !selectMenu.equals("3") && !selectMenu.equals("4") && !selectMenu.equals("5") && !selectMenu.equals("6")){
                         throw new IllegalArgumentException("잘못된 입력값입니다.");
                     }
+
+                    // 버거선택시 출력
                     switch (selectMenu) {
                         case "1": {
                             System.out.println("ShakeBurger 를 주문하시겠습니까? (Y/N)");
@@ -109,16 +114,16 @@ public class Kiosk {
                                 break;
                             }
                         }
-                    } // switch  문
+                    }
                         if (selectMenu.equals("0")){
                             break;
                         }
-                } // 작은 while 문
+                } // 버거메뉴 while 문
             } // 1 입력시 작동되는 else if 문
             if (selectCategory.equals("0")) {
                 break;
             }
-        } // 큰 while 문
+        } // 카테고리 while 문
     }
 
 
