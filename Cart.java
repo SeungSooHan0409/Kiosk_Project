@@ -1,5 +1,6 @@
 package project.kiosk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
@@ -11,6 +12,9 @@ public class Cart {
 
     // 생성자
 
+    Cart(){
+        this.orderList = new ArrayList<>();
+    }
 
 
     // 기능
@@ -45,6 +49,12 @@ public class Cart {
     // 주문수량설정 기능
     public void plusQuantity(int a){
         this.orderQuantity = a;
+    }
+
+    // 장바구니 출력조건 설정
+    public boolean showOrderMenu(){
+        boolean result = this.orderList.isEmpty();
+        return result;
     }
 
 }
