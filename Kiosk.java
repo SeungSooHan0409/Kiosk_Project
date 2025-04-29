@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Kiosk {
 
     // 속성
-     Menu menu;
+    private Menu menu;
 
 
     // 생성자
@@ -23,7 +23,7 @@ public class Kiosk {
         while(true) {
 
                 int j = 1;
-                for (String category : menu.category) {
+                for (String category : menu.getCategoryList()) {
                     System.out.printf("%-1d. %-18s \n", j, category);
                     j++;
                 }
@@ -38,8 +38,8 @@ public class Kiosk {
                     System.out.println("[ SHAKESHAKE MENU ]");
                     // 출력을 가지런히 하기위해 포맷팅되는 printf 를 사용함.
                     int i = 1;
-                    for (MenuItem menuList : menu.menuItems) {
-                        System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", i, menuList.name, menuList.price, menuList.explain);
+                    for (MenuItem menuList : menu.getItemList()) {
+                        System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", i, menuList.getName(), menuList.getPrice(), menuList.getExplain());
                         i++;
                     }
 
@@ -121,10 +121,19 @@ public class Kiosk {
         } // 큰 while 문
     }
 
-    // 메뉴아이템을 수동으로 추가하는 기능
-    public void addMenuItem(MenuItem menuItem) {
-        menu.menuItems.add(menuItem);
+
+    // 세터 설정
+    // Menu 의 메서드 사용을 위한 세터 만들기
+    // 카테고리추가 기능
+    public void setMenu(String name){
+        this.menu.addCategory(name);
     }
 
+
+    // 게터 설정
+    // 메뉴에 접근가능하도록 게터 만들기
+    public Menu getMenu() {
+        return this.menu;
+    }
 }
 
