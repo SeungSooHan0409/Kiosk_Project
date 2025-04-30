@@ -19,6 +19,14 @@ public class Kiosk {
 
 
     // 기능
+    // Enum 생성
+    public enum Job {
+        국가유공자, 군인, 학생, 일반
+    }
+
+    // Enum 반환형태 배열로 변환
+    Job[] job = Job.values();
+
     Scanner scanner = new Scanner(System.in);
     public void start(){
         // 키오스크 출력문 출력 로직
@@ -191,7 +199,30 @@ public class Kiosk {
                     String pay = scanner.nextLine();
 
                     if(pay.equals("Y")) {
-                        System.out.println("W " + (totalPayment * 1000) + "원이 결제되었습니다.");
+                        // 할인율 배열생성
+                        String[] discount = {"10%", "5%", "3%", "0%"};
+                        System.out.println("할인 정보를 입력해주세요");
+                        // 할인내용 출력문 로직
+                        int b = 0;
+                        for(Job joblist : job){
+                            System.out.println((b+1) + ". " + joblist.name() + " : " + discount[b]);
+                            b++;
+                        }
+                        System.out.print("선택란 : ");
+                        String discountType = scanner.nextLine();
+                        // 할인적용
+                        if(discountType.equals("1")){
+                            System.out.println("W " + (totalPayment * 1000 * 0.9) + "원이 결제되었습니다.");
+                        } else if(discountType.equals("2")) {
+                            System.out.println("W " + (totalPayment * 1000 * 0.95) + "원이 결제되었습니다.");
+                        } else if(discountType.equals("3")) {
+                            System.out.println("W " + (totalPayment * 1000 * 0.97) + "원이 결제되었습니다.");
+                        } else if(discountType.equals("4")) {
+                            System.out.println("W " + (totalPayment * 1000) + "원이 결제되었습니다.");
+                        } else {
+                            throw new IllegalArgumentException("올바른 값을 입력해주세요.");
+                        }
+
 
                         // 장바구니 초기화
                         for(a = 0; a < cart.orderListsize();){
