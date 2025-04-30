@@ -21,6 +21,7 @@ public class MenuItem {
         menu.addMenuitems(this);
     }
 
+
     // 기능
     // 세터 설정
     public void setName(String name){

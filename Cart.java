@@ -8,12 +8,13 @@ public class Cart {
     // 속성
     private List<MenuItem> orderList;
     private double orderAmount;
-    private int orderQuantity;
+    private List<Integer> orderQuantity;
 
     // 생성자
 
     Cart(){
         this.orderList = new ArrayList<>();
+        this.orderQuantity = new ArrayList<>();
     }
 
 
@@ -31,8 +32,18 @@ public class Cart {
     }
 
     // 주문수량조회 기능
-    public int getOrderQuantity() {
-        return this.orderQuantity;
+    public int getOrderQuantity(int a) {
+        return this.orderQuantity.get(a);
+    }
+
+    // 반복문에 사용할 리스트 길이 반환
+    public int orderListsize() {
+        return orderList.size();
+    }
+
+    // 장바구니에 담긴 메뉴가격 출력
+    public double getItemPrice(int a) {
+        return orderList.get(a).getPrice();
     }
 
     // 세터 설정
@@ -46,15 +57,16 @@ public class Cart {
         this.orderList.remove(a);
     }
 
-    // 주문수량설정 기능
+    // 주문수량추가 기능
     public void plusQuantity(int a){
-        this.orderQuantity = a;
+        this.orderQuantity.add(a);
     }
 
     // 장바구니 출력조건 설정
-    public boolean showOrderMenu(){
+    public boolean showOrderMenu() {
         boolean result = this.orderList.isEmpty();
         return result;
     }
+
 
 }

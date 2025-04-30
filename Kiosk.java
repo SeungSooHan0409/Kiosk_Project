@@ -74,7 +74,7 @@ public class Kiosk {
 
                     // 버거선택시 출력, 장바구니에 메뉴 추가여부 묻는문장 출력
                     switch (selectMenu) {
-                        case "1": {
+                        case "1" : {
                             System.out.println("ShakeBurger 를 장바구니에 담으시겠습니까? (Y/N)");
                             String confirm = scanner.nextLine();
                             if (confirm.equals("Y")) {
@@ -176,18 +176,28 @@ public class Kiosk {
                 else if (selectCategory.equals("4")) {
                     int k = 1;
                     for(MenuItem menuList : cart.getCartList()) {
-                        System.out.printf("%-1d. %-18s | W %-5.1f | %s  |  수량 :  %-2d\n", k, menuList.getName(), menuList.getPrice(), menuList.getExplain(), cart.getOrderQuantity());
+                        System.out.printf("%-1d. %-18s | W %-5.1f | %s  |  수량 :  %-2d\n", k, menuList.getName(), menuList.getPrice(), menuList.getExplain(), cart.getOrderQuantity(k-1));
                         k++;
                     }
+
+                    // 계산로직 작성
+                    double totalPayment = 0;
+                    int a = 0;
+                    for( ; a < cart.orderListsize() ; a++){
+                        totalPayment += ((cart.getItemPrice(a)))*(cart.getOrderQuantity(a));
+                    }
+                    System.out.println("총 계산금액 : " + totalPayment*1000 + " 원");
                     System.out.println("계산하시겠습니까? Y/N : ");
                     String pay = scanner.nextLine();
+
                     if(pay.equals("Y")) {
-                        // 계산로직 작성
-                        double totalPayment = 0;
-                        for(MenuItem menuList : cart.getCartList()){
-                            totalPayment += (menuList.getPrice())*(cart.getOrderQuantity());
-                        }
                         System.out.println("W " + (totalPayment * 1000) + "원이 결제되었습니다.");
+
+                        // 장바구니 초기화
+                        for(a = 0; a < cart.orderListsize();){
+                            cart.removeCart(a);
+                        }
+                        System.out.println("장바구니가 초기화 되었습니다.");
                     }
                 }
                 // '5' 입력시 장바구니 메뉴삭제
