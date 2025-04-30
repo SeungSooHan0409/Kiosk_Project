@@ -69,4 +69,9 @@ public class Menu {
         return this.category;
     }
 
+    // 메뉴 컬렉션 길이 반환하기
+    public int getMenuItemsSize() {
+        return menuItems.size();
+    }
+
 }

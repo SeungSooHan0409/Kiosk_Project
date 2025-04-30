@@ -31,7 +31,7 @@ public class Cart {
         return this.orderAmount;
     }
 
-    // 주문수량조회 기능
+    // 메뉴1개 주문수량조회 기능
     public int getOrderQuantity(int a) {
         return this.orderQuantity.get(a);
     }
@@ -44,6 +44,16 @@ public class Cart {
     // 장바구니에 담긴 메뉴가격 출력
     public double getItemPrice(int a) {
         return orderList.get(a).getPrice();
+    }
+
+    // 장바구에 담긴 메뉴 1개만 출력
+    public MenuItem getCartItem(int a) {
+        return orderList.get(a);
+    }
+
+    // 수량 리스트 가져오기
+    public List<Integer> getCartQuantity() {
+        return orderQuantity;
     }
 
     // 세터 설정
@@ -68,5 +78,13 @@ public class Cart {
         return result;
     }
 
+    // 장바구니 상품리스트 교체
+    public void changeOrderList(List<MenuItem> menuItems) {
+        this.orderList = menuItems;
+    }
+
+    public void changeOrderQuantityList(List<Integer> quantity) {
+        this.orderQuantity = quantity;
+    }
 
 }

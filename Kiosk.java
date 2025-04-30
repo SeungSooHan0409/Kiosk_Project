@@ -1,8 +1,12 @@
 package project.kiosk;
 
+import chpater3.thread.runnable.MyNewClass;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Kiosk {
 
@@ -64,11 +68,17 @@ public class Kiosk {
                 else if(selectCategory.equals("1")){
                     while(true) {
                     System.out.println("[ BURGERS MENU ]");
-                    int i = 1;
-                    for (MenuItem menuList : menu.getItemList()) {
-                        System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", i, menuList.getName(), menuList.getPrice(), menuList.getExplain());
-                        i++;
-                    }
+//                    int i = 1;
+//                    for (MenuItem menuList : menu.getItemList()) {
+//                        System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", i, menuList.getName(), menuList.getPrice(), menuList.getExplain());
+//                        i++;
+//                    }
+
+                    IntStream.range(0, menu.getMenuItemsSize())
+                                .forEach(c -> {
+                                System.out.printf("%-1d. %-18s | W %-5.1f | %s\n", (c+1), menu.getMenuItem(c).getName(), menu.getMenuItem(c).getPrice(), menu.getMenuItem(c).getExplain());
+                            });
+
 
                     System.out.println("0. 뒤로가기");
                     // 버거메뉴 입력대기
@@ -195,10 +205,11 @@ public class Kiosk {
                         totalPayment += ((cart.getItemPrice(a)))*(cart.getOrderQuantity(a));
                     }
                     System.out.println("총 계산금액 : " + totalPayment*1000 + " 원");
-                    System.out.println("계산하시겠습니까? Y/N : ");
-                    String pay = scanner.nextLine();
+                    System.out.println("1. 주문            2. 메뉴제거            3. 뒤로가기");
+                    System.out.print("원하시는 메뉴를 입력하세요. : ");
+                    String decideCartMenu = scanner.nextLine();
 
-                    if(pay.equals("Y")) {
+                    if(decideCartMenu.equals("1")) {
                         // 할인율 배열생성
                         String[] discount = {"10%", "5%", "3%", "0%"};
                         System.out.println("할인 정보를 입력해주세요");
@@ -208,7 +219,7 @@ public class Kiosk {
                             System.out.println((b+1) + ". " + joblist.name() + " : " + discount[b]);
                             b++;
                         }
-                        System.out.print("선택란 : ");
+                        System.out.print("입력란 : ");
                         String discountType = scanner.nextLine();
                         // 할인적용
                         if(discountType.equals("1")){
@@ -229,6 +240,32 @@ public class Kiosk {
                             cart.removeCart(a);
                         }
                         System.out.println("장바구니가 초기화 되었습니다.");
+                        // 장바구니에서 제거할 상품선택
+                    } else if (decideCartMenu.equals("2")){
+                        System.out.print("제거하실 메뉴를 입력해주세요. : ");
+                        int selectNumber = scanner.nextInt();
+                        scanner.nextLine();
+                        if(selectNumber >= 0 && selectNumber <= cart.orderListsize()){
+
+                            // 게터로 삭제할 상품 및 수량조회
+                            MenuItem deleteItem = cart.getCartItem((selectNumber-1));
+                            Integer deleteQuantity = cart.getOrderQuantity((selectNumber-1));
+
+                            // 삭제할 상품 및 수량을 제외한 리스트를 다시 생성
+                            List<MenuItem> RemovedItem = cart.getCartList().stream().filter(item -> !(item == deleteItem)).collect(Collectors.toList());
+                            List<Integer> RemovedQuantity = cart.getCartQuantity().stream().filter(quantity -> !(quantity == deleteQuantity)).collect(Collectors.toList());
+
+                            // 세터로 생성한 리스트를 속성에 재할당
+                            cart.changeOrderList(RemovedItem);
+                            cart.changeOrderQuantityList(RemovedQuantity);
+
+                        } else {
+                            throw new IllegalArgumentException("올바른 값을 입력해주세요.");
+                        }
+                    } else if (decideCartMenu.equals("3")) {
+                        System.out.println("초기화면으로 돌아갑니다.");
+                    } else {
+                        throw new IllegalArgumentException("올바른 값을 입력해주세요.");
                     }
                 }
                 // '5' 입력시 장바구니 메뉴삭제
