@@ -87,4 +87,9 @@ public class Cart {
         this.orderQuantity = quantity;
     }
 
+    // 주문금액 초기화
+    public void setOrderAmount(double a) {
+        this.orderAmount = a;
+    }
+
 }
