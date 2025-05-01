@@ -368,9 +368,5 @@ public class Kiosk {
         }
     }
 
-    // 카테고리 메뉴선택에 따른 출력 로직
-    void selectCategory() {
-
-    }
 }
 
