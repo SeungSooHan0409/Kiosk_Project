@@ -1,29 +1,30 @@
 package project.kiosk;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Kiosk 객체생성
+        Kiosk kiosk = new Kiosk();
 
-        while(true) {
-            System.out.println("[ SHAKESHAKE MENU ]");
-            System.out.println("ShackBurger    | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거");
-            System.out.println("SmokeShack     | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거");
-            System.out.println("Cheeseburger   | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거");
-            System.out.println("Hamburger      | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거");
-            System.out.println("종료            |  종료");
+        // 상위메뉴 (category) 생성
+        kiosk.setMenu("Burger");
+        kiosk.setMenu("Drink");
+        kiosk.setMenu("Dessert");
 
-            System.out.print("종료하시려면 0을 입력하세요 : ");
-            String exitTrigger = scanner.nextLine();
-            System.out.println("입력확인 : " + exitTrigger);
-            if(exitTrigger.equals("0")){
-                break;
-            }
+        // 버거 객체생성
+        MenuItem shackBurger = new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거", kiosk.getMenu());
+        MenuItem smokeShack = new MenuItem("SmokeShack", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거", kiosk.getMenu());
+        MenuItem cheeseBurger = new MenuItem("Cheeseburger", 6.9, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거", kiosk.getMenu());
+        MenuItem hamburger = new MenuItem("HamBurger", 5.4, "비프패티를 기반으로 야채가 들어간 기본버거", kiosk.getMenu());
+        MenuItem mushroomBurger = new MenuItem("MushroomBurger", 7.5, "버섯이 들어간 맛있는 버거", kiosk.getMenu());
+        MenuItem shirimpBurger = new MenuItem("ShirimpBurger", 6.4, "새우패티가 들어간 새우버거", kiosk.getMenu());
 
-            System.out.println("종료되었습니다.");
+        kiosk.start();
 
-        }
+
     }
 }
